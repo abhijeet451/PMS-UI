@@ -1,0 +1,35 @@
+<!-- <h1>Login Component</h1> -->
+		<h1 style="text-align: center;">Login</h1>
+		<mat-card-content>
+		  <form class="example-form"  #loginForm>
+			<table class="example-full-width" cellspacing="0">
+			  <tr>
+				<td>
+					<mat-form-field class="example-full-width" appearance="fill">
+						<mat-label>Email</mat-label>
+						<input matInput required [(ngModel)]="username" name="username" required>
+					</mat-form-field>
+				</td>
+			  </tr>
+			  <tr>
+			  <td>      
+				<mat-form-field class="example-full-width" appearance="fill">
+					<mat-label>Password</mat-label>
+					<input matInput required [(ngModel)]="password" name="password" required>
+				</mat-form-field>
+			</td>
+			</tr></table>
+		  </form>
+		</mat-card-content>
+		<mat-card-actions>
+		  <button mat-raised-button (click)="onSubmit()"  color="primary">Login</button>
+		  <br />
+		  <br />
+		<a [routerLink]="CONSTANT.routes.auth.register">Register</a>
+
+		<br />
+		<a [routerLink]="CONSTANT.routes.auth.forgotPassword">Forgot Password</a>
+		<br/>
+		</mat-card-actions>
+
+

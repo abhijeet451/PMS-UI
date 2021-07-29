@@ -1,0 +1,114 @@
+<h1>Register Component</h1>
+
+<form class="example-form"> 
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field appearance="fill">
+                    <mat-label >Title</mat-label>
+                    <select matNativeControl required [(ngModel)]="user.title.titleName" name="title">
+                      <option value="MR.">MR.</option>
+                      <option value="MRS.">MRS.</option>
+                      <option value="DR.">DR.</option>
+                      <option value="MISS.">MISS.</option>
+                    </select>
+                  </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td><mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>First name</mat-label>
+                       <input matInput required [(ngModel)]="user.firstName" name="firstName">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput required [(ngModel)]="user.lastName" name="lastName">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Enter your email</mat-label>
+                        <input matInput placeholder="pat@example.com" [formControl]="email" required
+                         [(ngModel)]="user.emailId">
+                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>contact Number</mat-label>
+                        <input matInput required placeholder="555-555-1234" 
+                        name="contactNumber"
+                        [(ngModel)]="user.contactNumber">
+                </mat-form-field>
+            </td>    
+        </tr>
+    </table>        
+    <table class="example-full-width" cellspacing="0"><tr>
+      <td>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label for="start">Date of Birth</mat-label>
+            <input matInput placeholder="Ex. San Francisco" type="date" id="dob" name="dob"
+                min="1900-01-01" max="new Date()" required
+                [(ngModel)]="user.dob">
+      </mat-form-field>
+    </td>
+    <td>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Role</mat-label>
+            <input matInput placeholder="Patient" value="Patient" [disabled]="true"
+            name="Role" [(ngModel)]="user.userRole.roleType" required
+            >
+        </mat-form-field>
+    </td>
+    </tr>
+    <tr>
+        <td> 
+            <mat-form-field appearance="fill">
+              <mat-label >Coutry</mat-label>
+              <select matNativeControl required [(ngModel)]="user.Coutry.countryName" required name="Country">
+                  <option value="AMERICA">AMERICA</option>
+                  <option value="INDIA">INDIA</option>
+              </select>
+            </mat-form-field>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <mat-label>Gender:</mat-label>&nbsp;&nbsp;
+            &nbsp;
+            <mat-radio-group name="gender" [(ngModel)]="user.gender" required >
+                <td>
+                     <mat-radio-button [checked]="true" name="gender" value="Male">Male </mat-radio-button>
+                </td>
+                <td>
+                     <mat-radio-button name="gender" value="Female" >Female </mat-radio-button>
+                </td>
+                <td>
+                     <mat-radio-button name="gender" value="Other">Other </mat-radio-button>
+                </td>    
+            </mat-radio-group>    
+        </td>     
+    </tr>
+    <br/>
+</table>
+
+<mat-form-field appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="user.passwrd" name="password"  required>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+    <br/>
+        <button mat-raised-button color="primary" (click)="onRegister()">Register</button>  
+</form>
+<br />
+<a [routerLink]="CONSTANT.routes.auth.login">Login</a>
+
+<br />
+<a [routerLink]="CONSTANT.routes.auth.forgotPassword">Forgot Password</a>
+
