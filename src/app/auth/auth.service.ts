@@ -35,6 +35,7 @@ export class AuthService {
 	}
 
 	register(user:User){
+		
 		this.sharedService.getsharedGuestService().registerUser(user);
 		console.log(user);
 

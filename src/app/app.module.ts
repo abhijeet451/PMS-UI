@@ -15,6 +15,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 // Component
 import { LayoutComponent } from './shared/components/layouts/layout.component';
 import { AppComponent } from './app.component';
+import { UserService } from './user/user.service';
 
 const routes: Routes = [
 	{
@@ -48,15 +49,15 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-		RouterModule.forRoot(routes),
-		NgxWebstorageModule.forRoot({ prefix: 'pms', separator: '.', caseSensitive: true }),
-		ToastrModule.forRoot(),
-		SharedModule
+	RouterModule.forRoot(routes),
+	NgxWebstorageModule.forRoot({ prefix: 'pms', separator: '.', caseSensitive: true }),
+	ToastrModule.forRoot(),
+	SharedModule
   ],
 	exports: [
 		RouterModule
 	],
-  providers: [],
+  providers: [UserService],
   bootstrap: [
 		AppComponent
 	]

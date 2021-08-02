@@ -1,6 +1,7 @@
 // Angular
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 // Module
 import { SharedImportsModule } from '../shared/shared-imports.module';
 // Component
@@ -9,8 +10,11 @@ import { UserComponent } from './user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+  
+//others
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginTokenInterceptor } from '../shared/interceptors/Token-Interceptor.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const routes: Routes = [{
 	path: '',
@@ -50,7 +54,8 @@ const routes: Routes = [{
 	],
   imports: [
 		RouterModule.forChild(routes),
-		SharedImportsModule
+		SharedImportsModule,
+		NgMultiSelectDropDownModule.forRoot()
 	],
 	exports: [
 		RouterModule
