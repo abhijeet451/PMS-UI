@@ -42,31 +42,4 @@ export class SharedGuestService {
 	getAllUser() {
 	   console.log(this._http.get<User>(this.baseUrl+'patient/get'));
 	}
-
-	getAllLaguages():Observable<Language[]>{
-		let langArr:Observable<Language[]> =this._http.get<Language[]>(this.baseUrl+'lang/getLang');
-		langArr.subscribe((data)=>{
-			this.langauges=data;
-			this.tostr.Success("Languages Loaded Successfully","Loaded");
-		},
-		error=>{
-			this.tostr.Error("Error while getting the Languages","Failed");
-		});
-		return langArr;
-	}
-
-	getPatientDetails(){
-		return this._http.get<PatientDetails>(this.baseUrl+'patient/getPatientbyId')
-	}
-
-	savePatient(patient:PatientDetails){
-		let response:Observable<PatientDetails> = this._http.post<PatientDetails>(this.baseUrl+'patient/add',patient);
-		response.subscribe((data)=>{
-			let pt:PatientDetails=data;
-		},
-		error=>{
-			console.log(alert("Error while getting the Patient Details"))
-		});
-		return response;
-	}
 }

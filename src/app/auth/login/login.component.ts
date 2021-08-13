@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	form!: FormGroup;
 	username: string;
 	password: string;
+	hide=true;
 
 	// Private
 	private unsubscribe: Subject<void> = new Subject();
@@ -92,18 +93,29 @@ export class LoginComponent implements OnInit, OnDestroy {
 	 */
 	onSubmit(): void {
 		const payload: ILoginSubmitPayload = {
-			username: this.form.controls['username'].value,
-			password: this.form.controls['password'].value
+			username: this.username,
+			password: this.password
 		};
+		console.log(payload)
 		this.authService
 			.login(payload)
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe((response: ILoginSubmitResponse) => {
 			this.sharedService.getStorageService().getLocal().store('token',response.token);
 				this.sharedService.getAuthService().processLoginResponse(response);
-				this.router.navigate(['/user/dashboard']);
+				this.router.navigate(['/user/patient/dashboard']);
 			});
 			
-			console.log("Second "+this.sharedService.getStorageService().getLocal().retrieve('token'));
+			//console.log("Second "+this.sharedService.getStorageService().getLocal().retrieve('token'));
+	}
+
+	email = new FormControl('', [Validators.required, Validators.email]);
+
+	getErrorMessage() {
+	  if (this.email.hasError('required')) {
+		return 'You must enter a value';
+	  }
+  
+	  return this.email.hasError('email') ? 'Not a valid email' : '';
 	}
 }

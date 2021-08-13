@@ -1,10 +1,14 @@
+//models
 import { PatientDetails } from './../../shared/models/PatientDetails.model';
 import { Language } from './../../shared/models/langauge.model';
-import { UserService } from './../user.service';
+import { EmergencyContact } from 'src/app/shared/models/EmergencyContact.model';
+import { User } from 'src/app/shared/models/UserRegister.model';
 // Angular
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+//Services
 import { SharedToastrService } from 'src/app/shared/services/shared-toastr.service';
+import { UserService } from './../user.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,70 +19,57 @@ export class ProfileComponent {
 
   langaues:FormGroup;
   basicDetailsForm: FormGroup;
-  AddressFormGroup: FormGroup;
+  UserDetails: FormGroup;
   LanguageForm: FormGroup;
   EmegencyContactDetails:FormGroup;
-
   dropdownList:Language[] = [];
   selectedItems:Language[] = [];
   dropdownSettings = {};
   age:number=0;
-  patientDetails:PatientDetails={
-    user:{
+
+  emrContact:EmergencyContact={
+    firstName: '' ,
+    lastName: '' ,
+    relationship: '' ,
+    email: '' ,
+    contactNumber: '' ,
+    address:'',
+    portalAccess:false
+  } 
+
+   usr:User={
       title:{
-       id: 1,
-       titleName: ''
-      },
-      firstName:'',
-      lastName:'',
-      emailId:'',
-      contactNumber: 1234567890,
-      dob: new Date,
-      userRole: {
-       id: 1,
-       roleName: "Patient",
-       roleType: 'Patient',
-      },
-      Coutry:{
-       id: 1,
-       countryCode: 91,
-       countryName: '',
-      },
-      gender:'',
-      passwrd:'',
-    },
+        id: 1,
+        titleName: ''
+       },
+       firstName:'',
+       lastName:'',
+       emailId:'',
+       contactNumber: 1234567890,
+       dob: new Date,
+       userRole: {
+        id: 1,
+        roleName: "Patient",
+        roleType: 'Patient',
+       },
+       Coutry:{
+        id: 1,
+        countryCode: 91,
+        countryName: '',
+       },
+       gender:'',
+       passwrd:'',
+   }
+
+  patientDetails:PatientDetails={
+    user:this.usr,
     id:this.age,
     age:this.age,
     race:'' ,
     ethnicity:'',
     languages:this.selectedItems,
-    address:{
-      street: '' ,
-      addressLine: '' ,
-      city: '' ,
-      district: '' ,
-      state: '', 
-      country: '' ,
-      pinCode: '' 
-    },
-
-    emergencyContact:{
-      firstName: '' ,
-      lastName: '' ,
-      relationship: '' ,
-      email: '' ,
-      contactNumber: '' ,
-      address:{
-        street: '' ,
-        addressLine: '' ,
-        city: '' ,
-        district: '' ,
-        state: '', 
-        country: '' ,
-        pinCode: '' 
-      },
-
-    } 
+    address:'',
+    emergencyContact:this.emrContact,
   }
   
   constructor(private _formBuilder: FormBuilder,
@@ -86,11 +77,11 @@ export class ProfileComponent {
               private toastr:SharedToastrService) {}
 
   ngOnInit(){
-    
     this.initLangForm();
     this.getAllLang();
     this.initFullForm();
     this.getPatient();
+
     this.dropdownSettings = {
       singleSelection: false,
       idField:'langId',
@@ -109,39 +100,34 @@ export class ProfileComponent {
   }
 
   initFullForm(){
+
+    this.UserDetails = this._formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      dob: ['', Validators.required],
+      contactNumber: ['', Validators.required],
+      gender: ['', Validators.required],});
+      this.UserDetails.disable();
+
     this.basicDetailsForm = this._formBuilder.group({
       age: ['', Validators.required],
       race: ['', Validators.required],
-      ethnicity: ['', Validators.required]
+      ethnicity: ['', Validators.required],
+      address: ['', Validators.required],
     });
-
-    this.AddressFormGroup = this._formBuilder.group({
-      street: ['', Validators.required],
-      addressLine: ['', Validators.required],
-      city: ['', Validators.required],
-      district: ['', Validators.required],
-      state: ['', Validators.required],
-      country: ['', Validators.required],
-      pinCode: ['', Validators.required],
-    });
-
+    
     this.EmegencyContactDetails = this._formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       relationship: ['', Validators.required],
       email: ['', Validators.required],
       contactNumber: ['', Validators.required],
-      street: ['', Validators.required],
-      addressLine: ['', Validators.required],
-      city: ['', Validators.required],
-      district: ['', Validators.required],
-      state: ['', Validators.required],
-      country: ['', Validators.required],
-      pinCode: ['', Validators.required],
+      address: ['', Validators.required],
     });
 
-  }
 
+  }
   getAllLang(){
     this.userService.getAllLangauges().subscribe((data)=>{
       this.dropdownList=data;
@@ -192,15 +178,27 @@ export class ProfileComponent {
     this.userService.SavePatientDetails(this.patientDetails);
   }
 
+  onChange($event:any){
+    if($event.target.checked){
+      this.patientDetails.emergencyContact.address=this.patientDetails.address;
+    }
+    else{
+      this.patientDetails.emergencyContact.address='';
+    }
+  } 
+
   getPatient(){
     this.userService.getPatientDetails().subscribe((data)=>{
-        console.log(data);
         this.patientDetails=data;
+        console.log(this.patientDetails.user)
+       let dateofbirth:Date=this.patientDetails.user.dob;
+       console.log(dateofbirth)
+        // var date = new Date(Date.UTC(year, month, day));
         this.selectedItems=data.languages;
         this.toastr.Info("Your Profile Details are Completed","Profile is Complete");
     },
-    error=>{
-      this.toastr.Info("Your Details Are Incomplete, Complete Your Profile","Complete Profile");
+    (error)=>{
+      this.toastr.Info(error.error.message,"InComplete Profile");
     }
     );
   

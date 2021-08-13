@@ -1,6 +1,6 @@
 // Angular
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 // Guard
 import { GuestGuard } from './guards/guest.guard';
 import { AuthGuard } from './guards/auth.guard';
@@ -10,7 +10,6 @@ import { SharedStorageService } from './services/shared-storage.service';
 import { SharedAuthService } from './services/shared-auth.service';
 import { SharedHttpService } from './services/shared-http.service';
 import { SharedService } from './shared.service';
-import { LoginTokenInterceptor } from './interceptors/Token-Interceptor.service';
 import { SharedGuestService } from './services/shared-guest.service';
 
 @NgModule({
@@ -26,7 +25,8 @@ import { SharedGuestService } from './services/shared-guest.service';
 		SharedService,
 		SharedGuestService,
 		GuestGuard,
-		AuthGuard
+		AuthGuard,
+		
 	]
 })
 export class SharedModule { }

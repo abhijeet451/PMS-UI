@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 // Angular
 import { Injectable } from '@angular/core';
 // Third Party
@@ -14,9 +15,11 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class AuthService {
 	
+	authUrl:'http://localhost:8001/authenticate';
 
 	constructor(
-		private sharedService: SharedService) { }
+		private sharedService: SharedService,
+		private _http:HttpClient) { }
 
 	// Custom Methods
 	/**
@@ -28,22 +31,23 @@ export class AuthService {
 	 */
 	login(payload: ILoginSubmitPayload): Observable<ILoginSubmitResponse> {
 		// const url: string = environment.apiURL + '/login';
-		// return this.sharedService.getHttpService().post(url, payload);
+		//return this.sharedService.getHttpService().post(this.authUrl, payload);
+
 		return of({
 			token: 'HardCodedToken'
 		});
+		// console.log(payload);
+		// return this._http.post<JwtResponse>(this.authUrl,payload);
+
 	}
 
 	register(user:User){
-		
 		this.sharedService.getsharedGuestService().registerUser(user);
 		console.log(user);
-
 		return 'SUCCESS'; 
 	}
-	getToken():String{
-		return "token";
-	}
+
+
 
 
 

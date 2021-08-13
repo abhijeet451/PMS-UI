@@ -5,18 +5,23 @@
 			<table class="example-full-width" cellspacing="0">
 			  <tr>
 				<td>
-					<mat-form-field class="example-full-width" appearance="fill">
+				    <mat-form-field class="example-full-width" appearance="fill">
 						<mat-label>Email</mat-label>
-						<input matInput required [(ngModel)]="username" name="username" required>
+							<input matInput placeholder="pat@example.com" [formControl]="email" required
+							 [(ngModel)]="username">
+						<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
 					</mat-form-field>
 				</td>
 			  </tr>
 			  <tr>
 			  <td>      
-				<mat-form-field class="example-full-width" appearance="fill">
+				<mat-form-field appearance="fill">
 					<mat-label>Password</mat-label>
-					<input matInput required [(ngModel)]="password" name="password" required>
-				</mat-form-field>
+					<input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password"  required>
+					<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+					  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+					</button>
+				  </mat-form-field>
 			</td>
 			</tr></table>
 		  </form>

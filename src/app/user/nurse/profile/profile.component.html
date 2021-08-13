@@ -1,0 +1,208 @@
+<h1>Profile Component</h1>
+
+  <mat-stepper #stepper>
+    <!--Patient User Details-->
+    <mat-step [stepControl]="EmegencyContactDetails" disabled label="Patient Details"> 
+      <form [formGroup]="UserDetails">
+        <table>
+          <tr>
+            <td>  
+              <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                  <input matInput type="text" formControlName="firstName" [(ngModel)]="patientDetails.emergencyContact.firstName"
+                    placeholder="Enter your Street">
+                </mat-form-field>
+                &nbsp;&nbsp;&nbsp;
+                <mat-form-field appearance="fill">
+                  <mat-label>Last Name</mat-label>
+                    <input matInput type="text" formControlName="lastName" [(ngModel)]="patientDetails.emergencyContact.lastName" 
+                    placeholder="Enter your Street">
+                </mat-form-field>
+                &nbsp;&nbsp;&nbsp;
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                      <input matInput type="email" formControlName="email" [(ngModel)]="patientDetails.emergencyContact.email"
+                      placeholder="Enter your Street">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field appearance="fill">
+              <mat-label>Date of Birth</mat-label>
+                <input matInput type="text" formControlName="relationship" [(ngModel)]="patientDetails.emergencyContact.relationship"
+                  placeholder="Enter your Street">
+              </mat-form-field>
+              &nbsp;&nbsp;&nbsp;
+              <mat-form-field appearance="fill">
+                  <mat-label>Contact Number</mat-label>
+                    <input matInput type="text" formControlName="contactNumber" [(ngModel)]="patientDetails.emergencyContact.contactNumber"
+                    placeholder="Enter your Street">
+              </mat-form-field>
+              &nbsp;&nbsp;&nbsp;
+            </td>
+          </tr>
+          <tr>
+            <td>
+                <mat-form-field appearance="fill">
+                <mat-label>Gender</mat-label>
+                  <textarea matInput formControlName="address" [(ngModel)]="patientDetails.emergencyContact.address"
+                    placeholder="Enter your Address Line" ></textarea>
+                  </mat-form-field>
+                &nbsp;&nbsp;&nbsp;
+            </td>
+          </tr>
+        </table>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+      </form>
+
+        </mat-step>
+
+
+
+
+
+
+
+
+
+     <!---Basic Form Details -->
+    <mat-step [stepControl]="basicDetailsForm">
+      <form [formGroup]="basicDetailsForm">
+        <ng-template matStepLabel>Fill Your Basic Details</ng-template>
+        <table>
+          <tr>
+            <td>
+            <!---Language MaltiSelect manu -->
+            <form [formGroup]="LanguageForm">
+              <label for="name">Languages</label>
+              <ng-multiselect-dropdown
+                [placeholder]="'select Languages'"
+                [settings]="dropdownSettings"
+                [data]="dropdownList"
+                (onSelect)="onItemSelect($event)"
+                (onDeSelect)="onItemDeSelect($event)"
+                aria-required="Languages"
+                 >
+              </ng-multiselect-dropdown> 
+            </form>     
+            </td>
+          </tr>
+         <tr>
+           <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Age</mat-label>
+          <input matInput type="number" placeholder="Enter your age here" [(ngModel)]="patientDetails.age"  
+          formControlName="age" required>
+        </mat-form-field>
+        &nbsp;&nbsp;&nbsp;
+        <mat-form-field appearance="fill">
+            <mat-label>Race</mat-label>
+            <input matInput type="text" placeholder="Enter your race" [(ngModel)]="patientDetails.race" 
+            formControlName="race" required>
+        </mat-form-field>
+        &nbsp;&nbsp;&nbsp;
+        <mat-form-field appearance="fill">
+            <mat-label>Ethnicity</mat-label>
+            <input matInput type="text" placeholder="Enter your ethnicity"  [(ngModel)]="patientDetails.ethnicity" 
+            formControlName="ethnicity" required>
+        </mat-form-field>
+           </td>
+         </tr>
+         <tr> <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Address</mat-label>
+          <textarea matInput formControlName="address"[(ngModel)]="patientDetails.address"
+          placeholder="Enter your Address Line" ></textarea>
+        </mat-form-field>
+         </td></tr>
+        </table>
+        <br/>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+      
+    </mat-step>
+
+    <!--Emegency Contact Details-->
+    <mat-step [stepControl]="EmegencyContactDetails" label="Emegency Contact Details"> 
+     
+      <form [formGroup]="EmegencyContactDetails">
+  
+        <table>
+          <tr>
+          <td>  
+            <label>Emegency Contact Basic Details</label><br>
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+            <input matInput type="text" formControlName="firstName" [(ngModel)]="patientDetails.emergencyContact.firstName"
+             placeholder="Enter your Street">
+          </mat-form-field>
+          &nbsp;&nbsp;&nbsp;
+          <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+              <input matInput type="text" formControlName="lastName" [(ngModel)]="patientDetails.emergencyContact.lastName" 
+              placeholder="Enter your Street">
+          </mat-form-field>
+          &nbsp;&nbsp;&nbsp;
+          <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" [(ngModel)]="patientDetails.emergencyContact.email"
+                 placeholder="Enter your Street">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field appearance="fill">
+            <mat-label>Relationship</mat-label>
+              <input matInput type="text" formControlName="relationship" [(ngModel)]="patientDetails.emergencyContact.relationship"
+               placeholder="Enter your Street">
+          </mat-form-field>
+          &nbsp;&nbsp;&nbsp;
+          <mat-form-field appearance="fill">
+              <mat-label>Contact Number</mat-label>
+                <input matInput type="text" formControlName="contactNumber" [(ngModel)]="patientDetails.emergencyContact.contactNumber"
+                 placeholder="Enter your Street">
+          </mat-form-field>
+          &nbsp;&nbsp;&nbsp;
+  
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Emegency Contact Address Details</label><br/>
+          <input type="checkbox" (change)="onChange($event)">
+            Same As Patient 
+          <br/>
+          <mat-form-field appearance="fill">
+          <mat-label>Address </mat-label>
+              <textarea matInput formControlName="address" [(ngModel)]="patientDetails.emergencyContact.address"
+              placeholder="Enter your Address Line" ></textarea>
+            </mat-form-field>
+            &nbsp;&nbsp;&nbsp;
+          </td>
+          </tr>
+        </table>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+      </form>
+
+        </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-raised-button matStepperPrevious>Back</button> &nbsp;&nbsp;&nbsp;
+        <button mat-raised-button  (click)="stepper.reset()">Reset</button>&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+      </div>
+    </mat-step>
+  </mat-stepper>

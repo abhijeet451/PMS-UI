@@ -1,4 +1,3 @@
-import { Address } from './Address.model';
 import { EmergencyContact } from './EmergencyContact.model';
 import { Language } from './langauge.model';
 import { User } from './UserRegister.model';
@@ -10,6 +9,6 @@ export interface PatientDetails{
 	 race:String ;
 	 ethnicity:String ;
 	 languages:Language[];
-	 address:Address;
+	 address:String;
 	 emergencyContact:EmergencyContact; 
 }

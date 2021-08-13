@@ -15,7 +15,6 @@ import { AuthGuard } from './shared/guards/auth.guard';
 // Component
 import { LayoutComponent } from './shared/components/layouts/layout.component';
 import { AppComponent } from './app.component';
-import { UserService } from './user/user.service';
 
 const routes: Routes = [
 	{
@@ -28,12 +27,10 @@ const routes: Routes = [
 		path: '',
 		component: LayoutComponent,
 		canActivate: [AuthGuard],
-		children: [
-			{
+		children: [{
 				path: 'user',
 				loadChildren: () => import('./user/user.module').then(m => m.UserModule)
-			}
-		]
+			}]
 	},
 	{
 		path: '**',
@@ -57,7 +54,7 @@ const routes: Routes = [
 	exports: [
 		RouterModule
 	],
-  providers: [UserService],
+  providers: [],
   bootstrap: [
 		AppComponent
 	]

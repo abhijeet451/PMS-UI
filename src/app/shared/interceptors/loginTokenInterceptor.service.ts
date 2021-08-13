@@ -16,7 +16,7 @@ export class LoginTokenInterceptor implements HttpInterceptor{
             setHeaders:{
                 'Content-Type' : 'application/json; charset=utf-8',
                 'Accept'       : 'application/json',
-                'Authorization': `Brarer ${sharedService.getStorageService().getLocal().retrieve('token')}`
+                'Authorization': `Bearer ${sharedService.getStorageService().getLocal().retrieve('token')}`
             }
         })
         return next.handle(tokanizedreq);
