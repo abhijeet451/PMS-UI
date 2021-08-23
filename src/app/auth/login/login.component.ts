@@ -1,3 +1,5 @@
+import { User } from './../../shared/models/UserRegister.model';
+import { Observable } from 'rxjs';
 // Angular
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
@@ -96,17 +98,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 			username: this.username,
 			password: this.password
 		};
-		console.log(payload)
+		console.log("in login login")
 		this.authService
 			.login(payload)
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe((response: ILoginSubmitResponse) => {
 			this.sharedService.getStorageService().getLocal().store('token',response.token);
 				this.sharedService.getAuthService().processLoginResponse(response);
-				this.router.navigate(['/user/patient/dashboard']);
+				this.getUser(payload.username);
+				this.sharedService.getToastrService().Success('Logged In','Success')
+			},
+			error=>{
+				this.sharedService.getToastrService().Error('Not abale To process .. Something went wrong','Failed')
 			});
-			
-			//console.log("Second "+this.sharedService.getStorageService().getLocal().retrieve('token'));
 	}
 
 	email = new FormControl('', [Validators.required, Validators.email]);
@@ -117,5 +121,40 @@ export class LoginComponent implements OnInit, OnDestroy {
 	  }
   
 	  return this.email.hasError('email') ? 'Not a valid email' : '';
+	}
+
+	getUser(email:String):void{
+
+		 this.authService.getUser(email).subscribe((data)=>{
+			 console.log(data);
+			let role:string=data.userRole;
+			this.sharedService.getStorageService().getLocal().store('role',role);
+			this.navigate(role)
+		},
+		error=>{
+			console.log(error)
+		});	
+	}
+
+	navigate(userrole:string){
+	console.log("Retrived "+this.sharedService.getStorageService().getLocal().retrieve('role'));
+
+		if(userrole=="ADMIN"){
+			console.log("redirecting towards admin")
+			this.router.navigate(['/user/admin/dashboard']);
+		}
+		else if(userrole==="PATIENT"){
+		this.router.navigate(['/user/patient/dashboard']);
+		}
+		else if(userrole==="PHYSICIAN"){
+			this.router.navigate(['/user/physician/dashboard']);
+		}
+	
+		else if(userrole==="NURSE"){
+			this.router.navigate(['/user/nurse/dashboard']);
+		}
+		else {
+			this.router.navigate(['/']);
+		}
 	}
 }

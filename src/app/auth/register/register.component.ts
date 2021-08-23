@@ -1,19 +1,24 @@
 import { AuthService } from './../auth.service';
 // Angular
-import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, NgForm, Validators } from '@angular/forms';
 import { SharedGuestService } from 'src/app/shared/services/shared-guest.service';
 //Interfaces
 import { User } from 'src/app/shared/models/UserRegister.model';
 // Constant
 import { CONSTANT } from '../../shared/constants/shared-constants';
+import { FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
+
+  @ViewChild('loginForm') registartionFrom!: NgForm;
+
 
    user:User={
      title:{
@@ -41,7 +46,11 @@ export class RegisterComponent {
 	// Public
 	CONSTANT = CONSTANT;
   hide=true;
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService,
+      private _formBuilder:FormBuilder){}
+  ngOnInit(): void {
+    this.initRegFrom();
+  }
 
   email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -51,6 +60,17 @@ export class RegisterComponent {
     }
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  initRegFrom(){
+    // this.registrationFrom= this._formBuilder.group({
+    //   firstName: ['', Validators.required],
+    //   lastName: ['', Validators.required],
+    //   email: ['', Validators.required],
+    //   contactNumber: ['', Validators.required],
+    // });
+
+    
   }
   onRegister(){
     this.authService.register(this.user);

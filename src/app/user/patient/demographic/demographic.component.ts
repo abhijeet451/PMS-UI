@@ -150,15 +150,6 @@ export class DemographicComponent {
   onItemDeSelect($event:any){
     console.log('DeSelected element ', $event);
     console.log(this.selectedItems.pop());
-
-    // let lang:Language=event;
-    // console.log('lang is'+lang);
-    // const index: number = this.selectedItems.indexOf(lang);
-    // console.log(index);
-    // if (index !== -1) {
-    //     this.selectedItems.splice(index, 1);
-    // } 
-   console.log(this.selectedItems);
   }
 
   getObjectListFromData(ids:any){

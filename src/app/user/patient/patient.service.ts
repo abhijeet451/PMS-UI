@@ -1,3 +1,4 @@
+import { Allergy } from './../../shared/models/Allergy.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
@@ -9,6 +10,7 @@ import { PatientDetails } from 'src/app/shared/models/PatientDetails.model';
 
 @Injectable()
 export class PatientService{
+
 
 	user:User;
 	langauges:Language[]=[];
@@ -59,4 +61,14 @@ export class PatientService{
 		});
 		return response;
 	}
+
+	getPatientAllergies():Observable<Allergy[]> {
+		return this._http.get<Allergy[]>('http://localhost:7000/patient/getAllergies');
+		//throw new Error('Method not implemented.');
+	  }
+
+	  getAllAlergies():Observable<Allergy[]>{
+		  console.log("geting allergy data")
+		return this._http.get<Allergy[]>('http://localhost:9888/allergy/all');
+	  }
 }

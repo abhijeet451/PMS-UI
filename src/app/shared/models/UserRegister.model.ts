@@ -2,23 +2,23 @@
 export class User{
     title: {
       id: Number;
-      titleName: String;
+      titleName: string;
     };
     Coutry: {
       id: Number;
       countryCode: Number;
-      countryName: String;
+      countryName: string;
     };
-    firstName:String;
-    lastName:String;
-    emailId:String;
+    firstName:string;
+    lastName:string;
+    emailId:string;
     contactNumber:number;
     dob:Date;
     userRole: {
       id: Number,
-      roleName: String,
-      roleType: String;
+      roleName: string,
+      roleType: string;
       };
-    gender:String;
-    passwrd:String
+    gender:string;
+    passwrd:string
 }

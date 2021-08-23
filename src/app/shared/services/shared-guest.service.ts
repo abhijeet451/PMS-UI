@@ -8,6 +8,7 @@ import { Language } from '../models/langauge.model';
 import { User } from '../models/UserRegister.model';
 import { SharedToastrService } from './shared-toastr.service';
 import { error } from '@angular/compiler/src/util';
+import { ILoginSubmitPayload, ILoginSubmitResponse } from 'src/app/auth/auth.interface';
 
 @Injectable()
 export class SharedGuestService {
@@ -17,6 +18,7 @@ export class SharedGuestService {
 	langauges:Language[]=[];
 
     baseUrl='http://localhost:9200/';
+	authUrl='http://localhost:8001/';
 	constructor(
 		private SharedStorageService: SharedStorageService,
         private _http : HttpClient,
@@ -38,6 +40,10 @@ export class SharedGuestService {
 		console.log(this.user);
 		 return response;
 	}
+
+	// doLogin(payload: ILoginSubmitPayload): Observable<ILoginSubmitResponse> {
+		
+	//  }
 
 	getAllUser() {
 	   console.log(this._http.get<User>(this.baseUrl+'patient/get'));

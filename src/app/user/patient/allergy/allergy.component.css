@@ -1,11 +1,26 @@
-.demo-table {
+.table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
   width: 100%;
 }
 
-.demo-button-container {
-  padding-bottom: 16px;
+ .td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
 }
 
-.demo-button + .demo-button {
-  margin-left: 8px;
+.th{
+  color: #ffffff;
+  text-align: center;
+  background: #2980b9
 }
+
+.header{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  color: #ffffff;
+  text-align: center;
+  background-color: #2980b9;
+}
+

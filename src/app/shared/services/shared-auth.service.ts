@@ -23,5 +23,7 @@ export class SharedAuthService {
 
 	logout() {
 		this.sharedStorageService.getLocal().store('isLoggedIn', false);
+		this.sharedStorageService.getLocal().store('token', null);
+		this.sharedStorageService.getLocal().store('role', null);
 	}
 }

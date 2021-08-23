@@ -17,7 +17,11 @@ export const CONSTANT = {
 			admin:{
 				dashboard: '/user/admin/dashboard',
 				profile: '/user/admin/profile',
-				changePassword: 'admin/change-password'
+				changePassword: 'admin/change-password',
+				user: '/user/admin/user',
+				allergy:'/user/admin/allergy',
+				diagnosis:'/user/admin/diagnosis',
+				mediaction:'/user/admin/medication'
 			},
 
 			physician:{
@@ -37,7 +41,8 @@ export const CONSTANT = {
 				profile: '/user/patient/profile',
 				changePassword: 'patient/change-password',
 				allergy: '/user/patient/allergy',
-				demographic:'/user/patient/demographic'
+				demographic:'/user/patient/demographic',
+				appointments:'/user/patient/appointment'
 			}
 		}
 	}

@@ -1,3 +1,4 @@
+import { CONSTANT } from './../shared/constants/shared-constants';
 import { HttpClient } from '@angular/common/http';
 // Angular
 import { Injectable } from '@angular/core';
@@ -11,11 +12,13 @@ import { User } from '../shared/models/UserRegister.model';
 
 // Environment
 import { environment } from '../../environments/environment';
+import { coerceStringArray } from '@angular/cdk/coercion';
+import { UserInfo } from '../shared/models/UserInfo.model';
 
 @Injectable()
 export class AuthService {
 	
-	authUrl:'http://localhost:8001/authenticate';
+	newUrl:String ='http://localhost:8001/';
 
 	constructor(
 		private sharedService: SharedService,
@@ -30,15 +33,10 @@ export class AuthService {
 	 * @return  {Observable<ILoginSubmitResponse>}
 	 */
 	login(payload: ILoginSubmitPayload): Observable<ILoginSubmitResponse> {
-		// const url: string = environment.apiURL + '/login';
-		//return this.sharedService.getHttpService().post(this.authUrl, payload);
-
-		return of({
-			token: 'HardCodedToken'
-		});
+		return this._http.post<ILoginSubmitResponse>(this.newUrl+'authenticate',payload); 
+		//return this.sharedService.getsharedGuestService().doLogin(payload);
 		// console.log(payload);
 		// return this._http.post<JwtResponse>(this.authUrl,payload);
-
 	}
 
 	register(user:User){
@@ -47,8 +45,7 @@ export class AuthService {
 		return 'SUCCESS'; 
 	}
 
-
-
-
-
+	getUser(email:String):Observable<UserInfo> {
+		return this._http.get<UserInfo>(this.newUrl+'user/'+email);
+	 }
 }
