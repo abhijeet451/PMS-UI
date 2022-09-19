@@ -9,5 +9,6 @@ export class UserInfo{
     dob:Date;
     userRole: string;
     gender:string;
-    passwrd:string
+    password:string;
+    role:string;
 }

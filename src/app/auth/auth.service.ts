@@ -46,6 +46,6 @@ export class AuthService {
 	}
 
 	getUser(email:String):Observable<UserInfo> {
-		return this._http.get<UserInfo>(this.newUrl+'user/'+email);
+		return this._http.get<UserInfo>(this.newUrl+'register/getuser/'+email);
 	 }
 }

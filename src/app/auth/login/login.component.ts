@@ -127,7 +127,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 		 this.authService.getUser(email).subscribe((data)=>{
 			 console.log(data);
-			let role:string=data.userRole;
+			let role:string=data.role;
 			this.sharedService.getStorageService().getLocal().store('role',role);
 			this.navigate(role)
 		},
@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	navigate(userrole:string){
 	console.log("Retrived "+this.sharedService.getStorageService().getLocal().retrieve('role'));
-
+	console.log("User Role "+userrole);
 		if(userrole=="ADMIN"){
 			console.log("redirecting towards admin")
 			this.router.navigate(['/user/admin/dashboard']);
